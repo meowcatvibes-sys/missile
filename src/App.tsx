@@ -10,7 +10,6 @@ import {
   playVictory,
   playGameOver,
   toggleMute,
-  getMuted,
   cleanupAudio,
 } from './audio/soundEngine';
 import TitleScreen from './components/TitleScreen';
