@@ -229,6 +229,20 @@
   50% { fill: #991b1b; }
 }
 
+/* Tapped state for mobile touch */
+.country-path--tapped {
+  fill: var(--country-hover);
+  stroke: var(--accent-cyan);
+  stroke-width: 2;
+  filter: drop-shadow(0 0 10px var(--accent-cyan-glow));
+}
+
+.map-tooltip__hint {
+  font-size: 0.65rem;
+  color: var(--text-dim);
+  font-style: italic;
+}
+
 /* Country tooltip */
 .map-tooltip {
   position: absolute;
@@ -1050,4 +1064,716 @@
   color: var(--accent-cyan);
   box-shadow: 0 0 15px var(--accent-cyan-glow);
   transform: scale(1.1);
+}
+
+/* ===== MOBILE RESPONSIVE ===== */
+
+/* --- Tablets & small laptops --- */
+@media (max-width: 768px) {
+  /* HUD */
+  .hud {
+    height: auto;
+    padding: 8px 12px;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .hud__logo {
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    width: 100%;
+    text-align: center;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .hud__stats {
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .hud__stat {
+    gap: 4px;
+    font-size: 0.7rem;
+  }
+
+  .hud__stat-label {
+    font-size: 0.55rem;
+  }
+
+  /* Map screen */
+  .map-screen {
+    padding-top: 72px;
+    height: 100dvh;
+  }
+
+  .map-screen__instruction {
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+
+  .map-container {
+    width: 96vw;
+  }
+
+  /* Confirm modal */
+  .confirm-modal {
+    padding: 24px 20px;
+    max-width: 360px;
+  }
+
+  .confirm-modal__icon {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+  }
+
+  .confirm-modal__label {
+    font-size: 0.65rem;
+    letter-spacing: 3px;
+  }
+
+  .confirm-modal__country {
+    font-size: 1.4rem;
+  }
+
+  .confirm-modal__pop {
+    font-size: 0.75rem;
+    margin-bottom: 20px;
+  }
+
+  .confirm-modal__countdown {
+    font-size: 3.5rem;
+    min-height: 60px;
+  }
+
+  .confirm-modal__buttons {
+    gap: 10px;
+  }
+
+  .confirm-modal__btn {
+    font-size: 0.75rem;
+    padding: 12px 20px;
+    letter-spacing: 1px;
+  }
+
+  /* Nuke animation */
+  .nuke-animation__status {
+    top: 20px;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+  }
+
+  /* Aftermath */
+  .aftermath-screen {
+    padding-top: 72px;
+    height: 100dvh;
+  }
+
+  .aftermath-panel {
+    padding: 20px 16px;
+    max-width: 100%;
+    width: 94%;
+    margin: 12px 0;
+  }
+
+  .aftermath-panel__header {
+    margin-bottom: 16px;
+  }
+
+  .aftermath-panel__icon {
+    font-size: 2.2rem;
+    margin-bottom: 4px;
+  }
+
+  .aftermath-panel__title {
+    font-size: 1rem;
+    letter-spacing: 2px;
+  }
+
+  .aftermath-panel__country {
+    font-size: 1.3rem;
+  }
+
+  .aftermath-panel__description {
+    font-size: 0.75rem;
+    margin-bottom: 16px;
+    padding: 10px;
+  }
+
+  .aftermath-panel__stats {
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .aftermath-stat {
+    padding: 10px 8px;
+  }
+
+  .aftermath-stat__label {
+    font-size: 0.55rem;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+
+  .aftermath-stat__value {
+    font-size: 0.95rem;
+  }
+
+  .chaos-meter {
+    margin-bottom: 16px;
+  }
+
+  .chaos-meter__label {
+    font-size: 0.65rem;
+  }
+
+  .history__title {
+    font-size: 0.65rem;
+  }
+
+  .history__tag {
+    font-size: 0.6rem;
+    padding: 3px 8px;
+  }
+
+  .aftermath-panel__btn {
+    font-size: 0.8rem;
+    padding: 14px;
+    letter-spacing: 2px;
+  }
+
+  /* Retaliation warning */
+  .retaliation-warning__siren-icon {
+    font-size: 3.5rem;
+  }
+
+  .retaliation-warning__siren-from {
+    font-size: 0.85rem;
+  }
+
+  .retaliation-warning__status {
+    top: 20px;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+  }
+
+  .retaliation-warning__damage-report {
+    width: 92%;
+    max-width: 400px;
+  }
+
+  .retaliation-warning__damage-icon {
+    font-size: 2.8rem;
+  }
+
+  .retaliation-warning__damage-title {
+    font-size: 1.5rem;
+    letter-spacing: 3px;
+    margin-bottom: 12px;
+  }
+
+  .retaliation-warning__damage-message {
+    font-size: 0.75rem;
+    margin-bottom: 20px;
+    padding: 12px;
+  }
+
+  .retaliation-warning__shield-display {
+    padding: 16px;
+  }
+
+  .retaliation-warning__shield-value {
+    font-size: 2.2rem;
+  }
+
+  /* Game Over */
+  .gameover-screen__content {
+    padding: 20px;
+  }
+
+  .gameover-screen__icon {
+    font-size: 3.5rem;
+    margin-bottom: 10px;
+  }
+
+  .gameover-screen__subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+  }
+
+  .gameover-screen__attacker {
+    margin-bottom: 20px;
+  }
+
+  .gameover-screen__attacker-name {
+    font-size: 1.2rem;
+  }
+
+  .gameover-screen__stats {
+    gap: 12px;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 28px;
+  }
+
+  .gameover-stat {
+    padding: 14px 28px;
+    width: 100%;
+    max-width: 260px;
+  }
+
+  .gameover-screen__btn {
+    font-size: 0.8rem;
+    padding: 14px 28px;
+  }
+
+  /* Win screen */
+  .win-screen {
+    padding: 20px;
+  }
+
+  .win-screen__icon {
+    font-size: 3.5rem;
+  }
+
+  .win-screen__title {
+    font-size: 1.8rem;
+  }
+
+  .win-screen__subtitle {
+    font-size: 0.85rem;
+    margin-bottom: 28px;
+  }
+
+  .win-screen__btn {
+    padding: 14px 28px;
+    font-size: 0.8rem;
+  }
+
+  /* Mute toggle */
+  .mute-toggle {
+    bottom: 12px;
+    right: 12px;
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+}
+
+/* --- Phones (portrait) --- */
+@media (max-width: 480px) {
+  /* HUD — extra compact */
+  .hud {
+    padding: 6px 8px;
+  }
+
+  .hud__logo {
+    font-size: 0.6rem;
+    letter-spacing: 1.5px;
+    padding-bottom: 3px;
+  }
+
+  .hud__stats {
+    gap: 6px;
+  }
+
+  .hud__stat {
+    flex-direction: column;
+    gap: 1px;
+    font-size: 0.65rem;
+    min-width: 0;
+  }
+
+  .hud__stat-label {
+    font-size: 0.5rem;
+    letter-spacing: 0.5px;
+  }
+
+  /* Hide the time stat on very small screens */
+  .hud__stat:last-child {
+    display: none;
+  }
+
+  /* Map */
+  .map-screen {
+    padding-top: 64px;
+  }
+
+  .map-screen__instruction {
+    font-size: 0.65rem;
+    letter-spacing: 1.5px;
+    margin-bottom: 4px;
+  }
+
+  .map-container {
+    width: 100vw;
+    max-width: none;
+  }
+
+  /* Tooltip — position at bottom of screen on mobile */
+  .map-tooltip {
+    position: fixed;
+    bottom: 60px;
+    left: 50%;
+    top: auto;
+    transform: translateX(-50%);
+    font-size: 0.85rem;
+    padding: 10px 20px;
+    z-index: 200;
+  }
+
+  .map-tooltip::after {
+    display: none;
+  }
+
+  /* Title screen */
+  .title-screen__nuke-icon {
+    font-size: 3.5rem;
+    margin-bottom: 16px;
+  }
+
+  .title-screen__subtitle {
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    margin-bottom: 10px;
+  }
+
+  .title-screen__tagline {
+    font-size: 0.8rem;
+    margin-bottom: 32px;
+    padding: 0 16px;
+    text-align: center;
+  }
+
+  .title-screen__launch-btn {
+    font-size: 0.85rem;
+    padding: 16px 32px;
+    letter-spacing: 2px;
+  }
+
+  .title-screen__warning {
+    bottom: 16px;
+    font-size: 0.55rem;
+    padding: 0 16px;
+    text-align: center;
+  }
+
+  /* Confirm modal */
+  .confirm-modal {
+    padding: 20px 16px;
+    max-width: calc(100vw - 24px);
+    border-radius: var(--radius-md);
+  }
+
+  .confirm-modal__icon {
+    font-size: 2rem;
+    margin-bottom: 8px;
+  }
+
+  .confirm-modal__country {
+    font-size: 1.2rem;
+  }
+
+  .confirm-modal__pop {
+    font-size: 0.7rem;
+    margin-bottom: 16px;
+  }
+
+  .confirm-modal__countdown {
+    font-size: 3rem;
+    min-height: 50px;
+    margin-bottom: 16px;
+  }
+
+  .confirm-modal__btn {
+    font-size: 0.7rem;
+    padding: 10px 16px;
+    min-height: 44px;
+  }
+
+  /* Nuke animation */
+  .nuke-animation__status {
+    top: 12px;
+    font-size: 0.7rem;
+    letter-spacing: 1.5px;
+    padding: 0 12px;
+    text-align: center;
+  }
+
+  /* Aftermath */
+  .aftermath-screen {
+    padding-top: 64px;
+  }
+
+  .aftermath-panel {
+    padding: 14px 12px;
+    width: 96%;
+    border-radius: var(--radius-md);
+  }
+
+  .aftermath-panel__header {
+    margin-bottom: 10px;
+  }
+
+  .aftermath-panel__icon {
+    font-size: 1.8rem;
+    margin-bottom: 2px;
+  }
+
+  .aftermath-panel__title {
+    font-size: 0.85rem;
+  }
+
+  .aftermath-panel__country {
+    font-size: 1.1rem;
+  }
+
+  .aftermath-panel__description {
+    font-size: 0.7rem;
+    margin-bottom: 10px;
+    padding: 8px;
+  }
+
+  .aftermath-panel__stats {
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+
+  .aftermath-stat {
+    padding: 8px 4px;
+  }
+
+  .aftermath-stat__label {
+    font-size: 0.5rem;
+    margin-bottom: 2px;
+  }
+
+  .aftermath-stat__value {
+    font-size: 0.8rem;
+  }
+
+  .chaos-meter {
+    margin-bottom: 10px;
+  }
+
+  .chaos-meter__bar {
+    height: 8px;
+  }
+
+  .aftermath-panel__history {
+    margin-bottom: 12px;
+  }
+
+  .history__list {
+    gap: 4px;
+  }
+
+  .history__tag {
+    font-size: 0.55rem;
+    padding: 2px 6px;
+  }
+
+  .aftermath-panel__btn {
+    font-size: 0.75rem;
+    padding: 12px;
+    min-height: 44px;
+  }
+
+  /* Retaliation */
+  .retaliation-warning__siren-icon {
+    font-size: 2.8rem;
+  }
+
+  .retaliation-warning__siren-from {
+    font-size: 0.75rem;
+    padding: 0 16px;
+    text-align: center;
+  }
+
+  .retaliation-warning__status {
+    top: 12px;
+    font-size: 0.7rem;
+    letter-spacing: 1.5px;
+    padding: 0 12px;
+    text-align: center;
+  }
+
+  .retaliation-warning__damage-report {
+    width: 94%;
+    padding: 0 8px;
+  }
+
+  .retaliation-warning__damage-icon {
+    font-size: 2.2rem;
+    margin-bottom: 8px;
+  }
+
+  .retaliation-warning__damage-title {
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+
+  .retaliation-warning__damage-message {
+    font-size: 0.7rem;
+    margin-bottom: 14px;
+    padding: 10px;
+  }
+
+  .retaliation-warning__shield-display {
+    padding: 12px;
+  }
+
+  .retaliation-warning__shield-label {
+    font-size: 0.65rem;
+  }
+
+  .retaliation-warning__shield-value {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+  }
+
+  .retaliation-warning__shield-bar {
+    height: 12px;
+  }
+
+  .retaliation-warning__damage-amount {
+    font-size: 0.8rem;
+  }
+
+  /* Game Over */
+  .gameover-screen__content {
+    padding: 16px;
+  }
+
+  .gameover-screen__icon {
+    font-size: 2.8rem;
+    margin-bottom: 8px;
+  }
+
+  .gameover-screen__subtitle {
+    font-size: 0.8rem;
+    margin-bottom: 16px;
+  }
+
+  .gameover-screen__attacker-label {
+    font-size: 0.65rem;
+  }
+
+  .gameover-screen__attacker-name {
+    font-size: 1rem;
+  }
+
+  .gameover-screen__stats {
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .gameover-stat {
+    padding: 12px 20px;
+  }
+
+  .gameover-stat__label {
+    font-size: 0.55rem;
+  }
+
+  .gameover-stat__value {
+    font-size: 1rem;
+  }
+
+  .gameover-screen__btn {
+    font-size: 0.7rem;
+    padding: 12px 20px;
+    min-height: 44px;
+  }
+
+  /* Win screen */
+  .win-screen {
+    padding: 16px;
+  }
+
+  .win-screen__icon {
+    font-size: 3rem;
+  }
+
+  .win-screen__title {
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+  }
+
+  .win-screen__subtitle {
+    font-size: 0.75rem;
+    margin-bottom: 24px;
+  }
+
+  .win-screen__btn {
+    padding: 12px 24px;
+    font-size: 0.75rem;
+    min-height: 44px;
+  }
+}
+
+/* --- Very short screens (landscape phones) --- */
+@media (max-height: 500px) {
+  .hud {
+    height: auto;
+    padding: 4px 12px;
+  }
+
+  .hud__logo {
+    display: none;
+  }
+
+  .map-screen {
+    padding-top: 40px;
+  }
+
+  .map-screen__instruction {
+    margin-bottom: 4px;
+    font-size: 0.65rem;
+  }
+
+  .title-screen__nuke-icon {
+    font-size: 2.5rem;
+    margin-bottom: 8px;
+  }
+
+  .title-screen__tagline {
+    margin-bottom: 16px;
+  }
+
+  .title-screen__warning {
+    bottom: 8px;
+  }
+
+  .aftermath-screen {
+    padding-top: 40px;
+  }
+
+  .aftermath-panel {
+    padding: 10px 12px;
+  }
+
+  .aftermath-panel__icon {
+    font-size: 1.5rem;
+    margin-bottom: 2px;
+  }
+
+  .confirm-modal {
+    padding: 16px;
+  }
+
+  .confirm-modal__icon {
+    font-size: 1.5rem;
+    margin-bottom: 4px;
+  }
+
+  .confirm-modal__countdown {
+    font-size: 2.5rem;
+    min-height: 40px;
+    margin-bottom: 10px;
+  }
 }

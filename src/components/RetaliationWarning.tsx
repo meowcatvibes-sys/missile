@@ -39,14 +39,20 @@ export default function RetaliationWarning({
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    const dpr = window.devicePixelRatio || 1;
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    canvas.style.width = w + 'px';
+    canvas.style.height = h + 'px';
+    ctx.scale(dpr, dpr);
 
-    const cx = canvas.width / 2;
-    const cy = canvas.height / 2;
+    const cx = w / 2;
+    const cy = h / 2;
 
     // Missile comes from top-right to center
-    const startX = canvas.width * 0.85;
+    const startX = w * 0.85;
     const startY = -50;
     let progress = 0;
     let animId: number;
@@ -54,7 +60,7 @@ export default function RetaliationWarning({
 
     const animate = () => {
       ctx.fillStyle = 'rgba(10, 14, 23, 0.2)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillRect(0, 0, w, h);
 
       progress += 0.02;
       if (progress >= 1 && !impacted) {
@@ -73,7 +79,7 @@ export default function RetaliationWarning({
       // Missile position (arc from top-right to center)
       const t = Math.min(progress, 1);
       const mx = startX + (cx - startX) * t;
-      const controlY = -canvas.height * 0.2;
+      const controlY = -h * 0.2;
       const my = startY * (1 - t) * (1 - t) + controlY * 2 * (1 - t) * t + cy * t * t;
 
       // Missile body — red glow
@@ -105,7 +111,7 @@ export default function RetaliationWarning({
     };
 
     ctx.fillStyle = '#0a0e17';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillRect(0, 0, w, h);
     animId = requestAnimationFrame(animate);
 
     return () => cancelAnimationFrame(animId);

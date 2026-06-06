@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import { countries, type Country } from '../data/countries';
 
 interface WorldMapProps {
@@ -8,8 +8,15 @@ interface WorldMapProps {
 
 export default function WorldMap({ nukedCountries, onSelectCountry }: WorldMapProps) {
   const [tooltip, setTooltip] = useState<{ name: string; x: number; y: number } | null>(null);
+  const [tappedCountry, setTappedCountry] = useState<string | null>(null);
+  const tapTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const isTouchDevice = useCallback(() => {
+    return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  }, []);
 
   const handleMouseEnter = (country: Country, e: React.MouseEvent) => {
+    if (isTouchDevice()) return; // Skip hover on touch devices
     if (nukedCountries.includes(country.id)) return;
     const svg = (e.target as SVGPathElement).closest('svg');
     if (!svg) return;
@@ -23,17 +30,41 @@ export default function WorldMap({ nukedCountries, onSelectCountry }: WorldMapPr
   };
 
   const handleMouseLeave = () => {
+    if (isTouchDevice()) return;
     setTooltip(null);
   };
 
   const handleClick = (country: Country) => {
     if (nukedCountries.includes(country.id)) return;
-    onSelectCountry(country);
+
+    if (isTouchDevice()) {
+      // On touch: first tap shows tooltip, second tap selects
+      if (tappedCountry === country.id) {
+        // Second tap — select it
+        setTappedCountry(null);
+        setTooltip(null);
+        if (tapTimerRef.current) clearTimeout(tapTimerRef.current);
+        onSelectCountry(country);
+      } else {
+        // First tap — show tooltip
+        setTappedCountry(country.id);
+        setTooltip({ name: country.name, x: 0, y: 0 }); // Position handled by CSS on mobile
+        if (tapTimerRef.current) clearTimeout(tapTimerRef.current);
+        tapTimerRef.current = setTimeout(() => {
+          setTappedCountry(null);
+          setTooltip(null);
+        }, 2500);
+      }
+    } else {
+      onSelectCountry(country);
+    }
   };
 
   return (
     <div className="map-screen">
-      <p className="map-screen__instruction">🎯 Select a target country</p>
+      <p className="map-screen__instruction">
+        {isTouchDevice() ? '🎯 Tap a country to target' : '🎯 Select a target country'}
+      </p>
       <div className="map-container">
         <svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg">
           {/* Ocean background */}
@@ -52,7 +83,7 @@ export default function WorldMap({ nukedCountries, onSelectCountry }: WorldMapPr
             <path
               key={country.id}
               d={country.path}
-              className={`country-path ${nukedCountries.includes(country.id) ? 'country-path--nuked' : ''}`}
+              className={`country-path ${nukedCountries.includes(country.id) ? 'country-path--nuked' : ''} ${tappedCountry === country.id ? 'country-path--tapped' : ''}`}
               onMouseEnter={(e) => handleMouseEnter(country, e)}
               onMouseLeave={handleMouseLeave}
               onClick={() => handleClick(country)}
@@ -73,9 +104,10 @@ export default function WorldMap({ nukedCountries, onSelectCountry }: WorldMapPr
         {tooltip && (
           <div
             className="map-tooltip"
-            style={{ left: tooltip.x, top: tooltip.y }}
+            style={!isTouchDevice() ? { left: tooltip.x, top: tooltip.y } : undefined}
           >
             ⊕ {tooltip.name}
+            {isTouchDevice() && <span className="map-tooltip__hint"> — tap again to launch</span>}
           </div>
         )}
       </div>

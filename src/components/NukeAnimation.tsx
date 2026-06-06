@@ -33,26 +33,32 @@ export default function NukeAnimation({ targetName, targetCenter, nukedCountries
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    const dpr = window.devicePixelRatio || 1;
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    canvas.style.width = w + 'px';
+    canvas.style.height = h + 'px';
+    ctx.scale(dpr, dpr);
 
     // Map SVG viewBox is 1000x500 — calculate the map rendering area
     // Center the map in the canvas
     const mapAspect = 2; // 1000/500
-    const canvasAspect = canvas.width / canvas.height;
+    const canvasAspect = w / h;
     let mapW: number, mapH: number, mapX: number, mapY: number;
 
     if (canvasAspect > mapAspect) {
       // Canvas is wider — fit to height
-      mapH = canvas.height * 0.85;
+      mapH = h * 0.85;
       mapW = mapH * mapAspect;
     } else {
       // Canvas is taller — fit to width
-      mapW = canvas.width * 0.9;
+      mapW = w * 0.9;
       mapH = mapW / mapAspect;
     }
-    mapX = (canvas.width - mapW) / 2;
-    mapY = (canvas.height - mapH) / 2;
+    mapX = (w - mapW) / 2;
+    mapY = (h - mapH) / 2;
 
     // Convert SVG coordinates (0-1000, 0-500) to canvas coordinates
     const svgToCanvas = (sx: number, sy: number) => ({
@@ -109,7 +115,7 @@ export default function NukeAnimation({ targetName, targetCenter, nukedCountries
     const drawMap = () => {
       // Ocean background
       ctx.fillStyle = '#0a0e17';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillRect(0, 0, w, h);
 
       // Map area background
       ctx.save();
@@ -218,7 +224,7 @@ export default function NukeAnimation({ targetName, targetCenter, nukedCountries
       const t = missileProgress;
       // Control point high above the midpoint
       const midX = (launchPos.x + target.x) / 2;
-      const arcHeight = Math.min(canvas.height * 0.6, 400);
+      const arcHeight = Math.min(h * 0.6, 400);
       const controlY = Math.min(launchPos.y, target.y) - arcHeight;
 
       const mx = launchPos.x * (1 - t) * (1 - t) + midX * 2 * (1 - t) * t + target.x * t * t;
